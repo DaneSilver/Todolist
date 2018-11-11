@@ -7,8 +7,8 @@ class App extends Component {
   state = {
     todos: [
       { text: 'Tomaten', done: false },
-      { text: 'Gurken' },
-      { text: 'Kartoffeln' }
+      { text: 'Gurken', done: false },
+      { text: 'Kartoffeln', done: false }
     ]
   }
 
@@ -27,13 +27,36 @@ class App extends Component {
     }
   }
 
+  deleteFunction = index => {
+    // 1. "state" laden und verknüpfen todos
+    const { todos } = this.state
+
+    // 2. bauen wir ein neues Array ohne das gelöschte Element
+    const deleteDone = [...todos.slice(0, index), ...todos.slice(index + 1)]
+    //const deleteDone = todos.splice(index, 1) recherchieren
+
+    // 3. speichern des veränderten Arrays in "state" inkl. erneute Ausgabe durch setState
+    this.setState({
+      todos: deleteDone
+    })
+  }
+
   addToggle = index => {
     const { todos } = this.state
+
     const toggleDone = [
       ...todos.slice(0, index),
       { ...todos[index], done: !todos[index].done },
       ...todos.slice(index + 1)
     ]
+
+    /*
+    console.log([...todos.slice(0, index)])
+    console.log([{ ...todos[index], done: !todos[index].done }])
+    console.log([...todos.slice(index + 1)])
+    */
+
+    //console.log(toggleDone)
     this.setState({
       todos: toggleDone
     })
@@ -52,6 +75,9 @@ class App extends Component {
               done={todo.done}
               text={todo.text}
               key={todo.text}
+              deleteFunction={() => {
+                this.deleteFunction(index)
+              }}
             />
           ))}
         </div>

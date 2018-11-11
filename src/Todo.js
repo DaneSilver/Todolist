@@ -3,15 +3,24 @@ import './Todo.css'
 
 class Todo extends Component {
   render() {
-    const { text, toggleFunction, done } = this.props
+    const { text, toggleFunction, done, deleteFunction } = this.props
     return (
-      <li
-        onClick={index => {
-          toggleFunction(index)
-        }}
-        className={done ? 'toggle' : ''}
-      >
-        {text}
+      <li>
+        <span
+          onClick={index => {
+            toggleFunction(index)
+          }}
+          className={done ? 'toggle' : ''}
+        >
+          {text}
+        </span>
+        <button
+          onClick={index => {
+            deleteFunction(index)
+          }}
+        >
+          x
+        </button>
       </li>
     )
   }
