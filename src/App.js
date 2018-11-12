@@ -5,11 +5,7 @@ import './App.css'
 
 class App extends Component {
   state = {
-    todos: [
-      { text: 'Tomaten', done: false },
-      { text: 'Gurken', done: false },
-      { text: 'Kartoffeln', done: false }
-    ]
+    todos: this.load()
   }
 
   //* todos = [{ text: 'Tomaten', done: false}, { text: 'Gurken' }, { text: 'Kartoffeln' }]  */
@@ -63,10 +59,11 @@ class App extends Component {
   }
 
   render() {
+    this.save()
     return (
-      <div>
-        <Input KeyUpFunction={this.addTodoArray} />
-        <div>
+      <div className="div1">
+        <Input className="input" KeyUpFunction={this.addTodoArray} />
+        <div className="div2">
           {this.state.todos.map((todo, index) => (
             <Todo
               toggleFunction={() => {
@@ -83,6 +80,18 @@ class App extends Component {
         </div>
       </div>
     )
+  }
+
+  save() {
+    localStorage.setItem('todo-app--todos', JSON.stringify(this.state.todos))
+  }
+
+  load() {
+    try {
+      return JSON.parse(localStorage.getItem('todo-app--todos')) || []
+    } catch (err) {
+      return []
+    }
   }
 }
 

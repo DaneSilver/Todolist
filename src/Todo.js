@@ -5,7 +5,7 @@ class Todo extends Component {
   render() {
     const { text, toggleFunction, done, deleteFunction } = this.props
     return (
-      <li>
+      <ul>
         <span
           onClick={index => {
             toggleFunction(index)
@@ -15,13 +15,14 @@ class Todo extends Component {
           {text}
         </span>
         <button
+          className="delete-btn"
           onClick={index => {
             deleteFunction(index)
           }}
         >
           x
         </button>
-      </li>
+      </ul>
     )
   }
 }
